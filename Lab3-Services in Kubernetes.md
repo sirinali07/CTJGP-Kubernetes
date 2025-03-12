@@ -1,9 +1,33 @@
 ## Services in Kubernetes
+In Kubernetes, a **service** is an abstraction that exposes a logical set of pods as a network endpoint. It provides consistent networking and load balancing for pods, even as they are dynamically created or terminated.
 
+**Why Use Services?**
+  * *Pod IP Address Ephemerality:* Pods are temporary and their IPs change as they restart. Services provide stable access to pods.
+  * *Load Balancing:* Services distribute traffic across multiple pods.
+  * *Service Discovery:* Services enable other components or external clients to locate pods without hardcoding IPs.
+
+**Types of Services**
+
+1. **ClusterIP (Default):**
+  * Exposes the service only within the cluster.
+  * Suitable for internal communication between services.
+
+2. **NodePort:**
+  * Exposes the service on a static port (30000-32767) on each node's IP.
+  * Accessible externally by using <NodeIP>:<NodePort>
+
+3. **LoadBalancer:**
+  * Integrates with a cloud provider's load balancer to expose the service externally.
+  * Suitable for public-facing applications.
+  
+----------------------------------------------------------------------
 ### Task 1: Create a pod using below yaml
 ```
 vi httpd-pod.yaml
 ```
+
+Add the given content, by pressing `INSERT`
+
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -20,6 +44,8 @@ spec:
     ports:
        - containerPort: 80
 ```
+save the file using `ESCAPE + :wq!`
+
 Apply the pod definition yaml
 ```
 kubectl apply -f httpd-pod.yaml
@@ -42,6 +68,8 @@ Create  a ClusterIP service using below YAML
 ```
 vi httpd-svc.yaml
 ```
+Add the given content, by pressing `INSERT`
+
 ```yaml
 apiVersion: v1
 kind: Service
@@ -58,6 +86,8 @@ spec:
     targetPort: 80
   type: ClusterIP
 ```
+save the file using `ESCAPE + :wq!`
+
 Apply above definition using below to create a ClusterIP service
 ```
 kubectl apply -f httpd-svc.yaml
@@ -87,6 +117,8 @@ Modify the service created in the previous task to type NodePort
 ```
 vi httpd-svc.yaml
 ```
+Add the given content, by pressing `INSERT`
+
 ```yaml
 apiVersion: v1
 kind: Service
@@ -103,6 +135,8 @@ spec:
     targetPort: 80
   type: NodePort
 ```
+save the file using `ESCAPE + :wq!`
+
 Apply the changes using below command
 ```
 kubectl apply -f httpd-svc.yaml
@@ -128,6 +162,8 @@ Modify the service created in the previous task to type LoadBalancer
 ```
 vi httpd-svc.yaml
 ```
+Add the given content, by pressing `INSERT`
+
 ```yaml
 apiVersion: v1
 kind: Service
@@ -144,6 +180,8 @@ spec:
     targetPort: 80
   type: LoadBalancer
 ```
+save the file using `ESCAPE + :wq!`
+
 Apply the changes using below command
 ```
 kubectl apply -f httpd-svc.yaml
