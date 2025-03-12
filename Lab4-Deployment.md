@@ -1,10 +1,22 @@
 ## Deployment
 
+A **Deployment** controller manages updates for Pods and ReplicaSets, ensuring the actual state aligns with the desired state as defined by the user.
+
+**Why Use Deployments?**
+  * *Declarative Updates:* Specify the desired state in YAML, and Kubernetes manages the rest.
+  * *Rolling Updates:* Update applications without downtime.
+  * *Rollback Support:* Revert to a previous deployment in case of failure.
+  * *Auto-Healing:* Automatically replaces failed pods.
+  * *Scaling:* Dynamically adjust the number of replicas to match workload demands.
+
+------------------------------------------------------------------------------------------------
 ### Task 1: Write a Deployment yaml and Apply it
 Create a dep-nginx.yaml using content given below
 ```
 vi dep-nginx.yaml
 ```
+Add the given content, by pressing `INSERT`
+
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -26,10 +38,12 @@ spec:
     spec:
       containers:
       - name: nginx-ctr
-        image: nginx:1.12.2
+        image: nginx:1.24.0
         ports:
         - containerPort: 80
 ```
+save the file using `ESCAPE + :wq!`
+
 Apply the Deployment yaml created in the previous step
 ```
 kubectl apply -f dep-nginx.yaml
@@ -58,7 +72,7 @@ exit
 ### Task 2: Update the Deployment with a Newer Image
 Update the nginx image in Pod using below
 ```
-kubectl set image deployment/nginx-dep nginx-ctr=nginx:1.11
+kubectl set image deployment/nginx-dep nginx-ctr=nginx:1.27-perl
 ```
 Describe the deployment and see that the old pods are replaced with newer ones
 ```
