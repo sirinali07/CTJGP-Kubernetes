@@ -9,10 +9,10 @@ kind: Pod
 metadata:
   name: mypod-hp
 spec:
-  volumes:
-  - name: myvol
-    hostPath:
-      path: /data
+ volumes:
+ - name: myvol
+   hostPath:
+    path: /data
  containers:
  - image: nginx:latest
     name: con1
