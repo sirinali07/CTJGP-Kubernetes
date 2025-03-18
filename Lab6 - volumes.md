@@ -20,7 +20,7 @@ spec:
     - containerPort: 80
     volumeMounts:
     - name: myvol
-      mountPath: /data 
+      mountPath: /app
   ```
 Save and exit the editor and Apply the Deployment yaml created in the previous step
 ```
