@@ -1,44 +1,32 @@
 ## Task 1: Creating Deployment with hostPath
 Create a file named mydep-hp.yaml using the content given below
 ```
-vi mydep-hp.yaml
+vi mypod-hp.yaml
 ```
 ```yaml
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Pod
 metadata:
-  name: mydep-hp
+  name: mypod-hp
 spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: mydep
-  template:
-    metadata:
-      labels:
-        app: mydep
-    spec:
-      containers:
-      - image: nginx:latest
-        name: con1
-        ports:
-        - containerPort: 80
-        volumeMounts:
-        - name: myvol
-          mountPath: /data
-      volumes:
-      - name: myvol
-        hostPath:
-          path: /data
+  volumes:
+  - name: myvol
+    hostPath:
+      path: /data
+ containers:
+ - image: nginx:latest
+    name: con1
+    ports:
+    - containerPort: 80
+    volumeMounts:
+    - name: myvol
+      mountPath: /data 
   ```
 Save and exit the editor and Apply the Deployment yaml created in the previous step
 ```
-kubectl apply -f mydep-hp.yaml
+kubectl apply -f mypod-hp.yaml
 ```
-View the objects created by Kubernetes Deployment and verify hostPath mounting in POD
-```
-kubectl get deployments
-```
+View the objects created by Kubernetes and verify hostPath mounting in POD
 ```
 kubectl get pods -o wide
 ```
@@ -59,9 +47,9 @@ echo "Welcome to DevOps Training" > index.html
 ```
 exit
 ```
-Now delete your deployment
+Now delete your pod
 ```
-kubectl delete -f mydep-hp.yaml --force
+kubectl delete -f mypod-hp.yaml --force
 ```
 Now ssh into the Node on which the particular pod( in which you went inside and created the index.html file) was running.
 ```
