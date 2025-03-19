@@ -14,7 +14,7 @@ spec:
    hostPath:
     path: /data
  containers:
- - image: nginx:latest
+  - image: nginx:latest
     name: con1
     ports:
     - containerPort: 80
